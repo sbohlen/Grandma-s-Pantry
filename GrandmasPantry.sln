@@ -1,6 +1,6 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grandma.Domain", "Grandma.Domain\Grandma.Domain.csproj", "{335DB80B-28CC-4656-8C69-75CA8BD89642}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grandma.Domain.Tests", "Grandma.Domain.Tests\Grandma.Domain.Tests.csproj", "{F92CF37A-E33A-4FDB-BC06-5EA55549DDD3}"
