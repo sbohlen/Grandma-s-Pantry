@@ -95,7 +95,7 @@ namespace Framework.ConsoleInteraction
 
         private static void ShowPrompt(string prompt)
         {
-            Console.WriteLine("\n{0}: ", prompt);
+            Console.Write("\n{0}: ", prompt);
         }
 
     }
