@@ -79,7 +79,7 @@ namespace Framework.ConsoleInteraction
 
             Console.WriteLine("\n\n{0}:", _promptMessage);
 
-            Console.WriteLine("0. Cancel Operation");
+            Console.WriteLine("0. Main Menu");
 
             int choiceCount = 1;
 

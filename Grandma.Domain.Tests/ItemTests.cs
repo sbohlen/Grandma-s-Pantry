@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
+using NUnit.Framework;
 using Grandma.Domain;
 
 namespace Grandma.Domain.Tests
@@ -30,8 +30,8 @@ namespace Grandma.Domain.Tests
         public class When_Adjusting_Quantities
         {
             [Test]
-            [Row(2, 3, 5, "Increase Test FAILED")]
-            [Row(12, -3, 9, "Decrease Test FAILED")]
+            [TestCase(2, 3, 5, "Increase Test FAILED")]
+            [TestCase(12, -3, 9, "Decrease Test FAILED")]
             public void Quantity_Is_Incremented_and_Decremented_As_Expected(int initial, int modifier, int expected, string failureMessage)
             {
                 Item item = new Item();

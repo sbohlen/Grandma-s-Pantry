@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MbUnit.Framework;
+using NUnit.Framework;
 using Grandma.Domain;
 
 namespace Grandma.Domain.Tests
@@ -109,12 +109,12 @@ namespace Grandma.Domain.Tests
                 pantry.AddItem(sugar);
                 pantry.AddItem(flour);
 
-                Assert.Contains(pantry.Items, sugar, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
-                Assert.Contains(pantry.Items, flour, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
+                CollectionAssert.Contains(pantry.Items, sugar, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
+                CollectionAssert.Contains(pantry.Items, flour, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
 
                 pantry.RemoveItem("sugar");
 
-                Assert.DoesNotContain(pantry.Items, sugar);
+                CollectionAssert.DoesNotContain(pantry.Items, sugar);
             }
         }
 
@@ -127,7 +127,7 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                Assert.IsEmpty(pantry.Items, "PRECONDITION ASSERT FAILURE: pantry.Items is NOT empty as expected!" );
+                CollectionAssert.IsEmpty(pantry.Items, "PRECONDITION ASSERT FAILURE: pantry.Items is NOT empty as expected!");
 
                 Assert.AreEqual("The Pantry is bare!".ToUpper(), pantry.ReportOnItems().ToUpper());
             }
@@ -146,7 +146,8 @@ namespace Grandma.Domain.Tests
                 sugar.AssignQuantity(3);
 
                 //ensure there aren't already any 'sugar' items in the pantry
-                Assert.Throws<Exception>(() => pantry.Items.Where(i => i.Description == "sugar").Single());
+                Assert.Throws<InvalidOperationException>(() => pantry.Items.Where(i => i.Description == "sugar").Single());
+                
 
                 pantry.AddItem(sugar);
 
@@ -171,13 +172,13 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                Assert.IsEmpty(pantry.Items);
+                CollectionAssert.IsEmpty(pantry.Items);
 
                 Item item = new Item() { Description = "something" };
 
                 pantry.AddItem(item);
 
-                Assert.Contains(pantry.Items, item);
+                CollectionAssert.Contains(pantry.Items, item);
 
             }
 
@@ -186,13 +187,13 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                Assert.IsEmpty(pantry.Items);
+                CollectionAssert.IsEmpty(pantry.Items);
 
                 Item item = new Item();
 
                 pantry.AddItem(item);
 
-                Assert.DoesNotContain(pantry.Items, item);
+                CollectionAssert.DoesNotContain(pantry.Items, item);
 
             }
 
