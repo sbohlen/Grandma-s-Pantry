@@ -30,8 +30,8 @@ namespace Grandma.Domain.Tests
         public class When_Adjusting_Quantities
         {
             [Test]
-            [TestCase(2, 3, 5, "Increase Test FAILED")]
-            [TestCase(12, -3, 9, "Decrease Test FAILED")]
+            [TestCase(2, 3, 5, "Increment Test FAILED")]
+            [TestCase(12, -3, 9, "Decrement Test FAILED")]
             public void Quantity_Is_Incremented_and_Decremented_As_Expected(int initial, int modifier, int expected, string failureMessage)
             {
                 Item item = new Item();

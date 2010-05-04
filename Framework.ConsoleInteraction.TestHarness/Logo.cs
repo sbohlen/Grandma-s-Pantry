@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/*
+ * ****************************************************
+ * FEEL FREE TO PERSONALIZE THIS BANNER FOR YOUR TEAM
+ * ****************************************************
+ */
+
 namespace Framework.ConsoleInteraction.TestHarness
 {
     class Logo

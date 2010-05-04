@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text;
 using Grandma.Domain;
 
+/*
+ * ***************************************************************************** 
+ * EXTEND THE INTERACTIVE MENU IN THIS CLASS; DO NOT WRITE TESTS FOR THIS CLASS 
+ * ***************************************************************************** 
+ */
+
 namespace Framework.ConsoleInteraction.TestHarness
 {
     public class InteractiveConsole
