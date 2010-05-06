@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 /*
  * ****************************************************
@@ -36,6 +33,6 @@ namespace Grandma.Application
 | (____/\ )   ( | )   ( | )     | )     ___) (___| ) \ \__| (____/\
 (_______//     \|/     \|/      |/      \_______/|/   \__/(_______/
                                                                    
-"; 
+";
     }
 }

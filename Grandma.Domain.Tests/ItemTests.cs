@@ -24,6 +24,7 @@ namespace Grandma.Domain.Tests
                 Assert.AreEqual("sugar: 3", item.ReportDetails());
 
             }
+
         }
 
         [TestFixture]
