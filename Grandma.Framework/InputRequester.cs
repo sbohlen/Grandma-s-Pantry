@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Framework.ConsoleInteraction
+namespace Grandma.Framework
 {
     /// <summary>
     /// Utility Class exposing methods to prompt for user input and return strongly-typed values.

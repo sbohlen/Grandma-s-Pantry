@@ -9,7 +9,7 @@ using System.Text;
  * ****************************************************
  */
 
-namespace Framework.ConsoleInteraction.TestHarness
+namespace Grandma.Application
 {
     class Logo
     {

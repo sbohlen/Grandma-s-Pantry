@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Grandma.Domain;
+using Grandma.Framework;
 
 /*
  * ***************************************************************************** 
@@ -10,7 +11,7 @@ using Grandma.Domain;
  * ***************************************************************************** 
  */
 
-namespace Framework.ConsoleInteraction.TestHarness
+namespace Grandma.Application
 {
     public class InteractiveConsole
     {

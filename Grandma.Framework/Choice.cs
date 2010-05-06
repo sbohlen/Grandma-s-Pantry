@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Framework.ConsoleInteraction
+namespace Grandma.Framework
 {
     /// <summary>
     /// Represents a single user choice item and encapsulates the text for the item and the action to invoke when the choice is selected.

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Framework.ConsoleInteraction
+namespace Grandma.Framework
 {
     public class InteractiveChooser
     {
