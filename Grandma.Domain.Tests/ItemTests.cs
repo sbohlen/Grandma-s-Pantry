@@ -17,11 +17,15 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Report_in_Expected_Format()
             {
+                const string DESCRIPTION = "sugar";
+                const int QUANTITY = 3;
+                
                 Item item = new Item();
-                item.AssignQuantity(3);
-                item.Description = "sugar";
+                
+                item.AssignQuantity(QUANTITY);
+                item.Description = DESCRIPTION;
 
-                Assert.AreEqual("sugar: 3", item.ReportDetails());
+                Assert.AreEqual(string.Format("{0}: {1}", DESCRIPTION, QUANTITY), item.ReportDetails());
 
             }
 
@@ -49,22 +53,27 @@ namespace Grandma.Domain.Tests
         [TestFixture]
         public class When_Creating_An_Item
         {
+            
             [Test]
             public void Can_Assign_Quantity_To_Item()
             {
+                const int QUANTITY = 3;
+                
                 Item item = new Item();
-                item.AssignQuantity(3);
+                item.AssignQuantity(QUANTITY);
 
-                Assert.AreEqual(3, item.Quantity);
+                Assert.AreEqual(QUANTITY, item.Quantity);
             }
 
             [Test]
             public void Can_Describe_Item()
             {
+                const string DESCRIPTION = "sugar";
+                
                 Item item = new Item();
-                item.Description = "sugar";
+                item.Description = DESCRIPTION;
 
-                Assert.AreEqual("sugar", item.Description);
+                Assert.AreEqual(DESCRIPTION, item.Description);
             }
 
         }

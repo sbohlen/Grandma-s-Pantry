@@ -17,20 +17,22 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Change_Item_Description()
             {
+                const string ITEM_TO_RENAME = "sugar";
+                const string ITEM_NOT_TO_RENAME = "flour";
+                const string NEW_NAME = "brown sugar";
+
                 Pantry pantry = new Pantry();
-
-                Item theItem = new Item() { Description = "sugar" };
-
-                Item notTheItem = new Item() { Description = "flour" };
+                
+                Item theItem = new Item() { Description = ITEM_TO_RENAME };
+                Item notTheItem = new Item() { Description = ITEM_NOT_TO_RENAME };
 
                 pantry.AddItem(theItem);
                 pantry.AddItem(notTheItem);
+                
+                Assert.IsFalse(pantry.Items.Any(i => i.Description == NEW_NAME), "PRECONDITION ASSERT FAILURE: Items collection should not contain item with the new item name!");
 
-                Assert.IsFalse(pantry.Items.Any(i => i.Description == "brown sugar"), "cannot enforce needed pre-test condition re: collection members!");
-
-                Assert.IsTrue(pantry.TryUpdateItemDescription("sugar", "brown sugar"));
-
-                Assert.IsTrue(pantry.Items.Any(i => i.Description == "brown sugar"));
+                Assert.IsTrue(pantry.TryUpdateItemDescription(ITEM_TO_RENAME, NEW_NAME));
+                Assert.IsTrue(pantry.Items.Any(i => i.Description == NEW_NAME));
 
 
             }
@@ -38,15 +40,19 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Prevent_Name_Collisions()
             {
+                const string INITIAL_DESCRIPTION = "sugar";
+                const string NEW_DESCRIPTION = "brown sugar";
+                
                 Pantry pantry = new Pantry();
-
-                Item sugar = new Item() { Description = "sugar" };
-                Item brownSugar = new Item() { Description = "brown sugar" };
+                
+                Item sugar = new Item() { Description = INITIAL_DESCRIPTION };
+                
+                Item brownSugar = new Item() { Description = NEW_DESCRIPTION };
 
                 pantry.AddItem(sugar);
                 pantry.AddItem(brownSugar);
 
-                Assert.IsFalse(pantry.TryUpdateItemDescription("brown sugar", "sugar"));
+                Assert.IsFalse(pantry.TryUpdateItemDescription(NEW_DESCRIPTION, INITIAL_DESCRIPTION));
             }
         }
 
@@ -57,16 +63,20 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Indicate_Invalid_Action()
             {
+                const string NOT_THE_DESCRIPTION = "flour";
+                const string INITIAL_DESCRIPTION = "sugar";
+                const string NEW_DERSCRIPTION = "brown sugar";
+
                 Pantry pantry = new Pantry();
 
-                Item notTheItem = new Item() { Description = "flour" };
+                Item notTheItem = new Item() { Description = NOT_THE_DESCRIPTION };
 
                 pantry.AddItem(notTheItem);
 
-                Assert.IsFalse(pantry.Items.Any(i => i.Description == "sugar"), "cannot enforce needed pre-test condition re: collection members!");
-                Assert.IsFalse(pantry.Items.Any(i => i.Description == "brown sugar"), "cannot enforce needed pre-test condition re: collection members!");
+                Assert.IsFalse(pantry.Items.Any(i => i.Description == INITIAL_DESCRIPTION), "PRECONDITION ASSERT FAILURE: cannot enforce needed pre-test condition re: collection members!");
+                Assert.IsFalse(pantry.Items.Any(i => i.Description == NEW_DERSCRIPTION), "PRECONDITION ASSERT FAILURE: cannot enforce needed pre-test condition re: collection members!");
 
-                Assert.IsFalse(pantry.TryUpdateItemDescription("sugar", "brown sugar"));
+                Assert.IsFalse(pantry.TryUpdateItemDescription(INITIAL_DESCRIPTION, NEW_DERSCRIPTION));
             }
         }
 
@@ -76,20 +86,26 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Report_Items_as_Expected()
             {
+                const string ITEM1_DESCRIPTION = "sugar";
+                const int ITEM1_QUANTITY = 3;
+
+                const string ITEM2_DESCRIPTION = "flour";
+                const int ITEM2_QUANTITY = 1;
+
                 Pantry pantry = new Pantry();
-
-                Item sugar = new Item() { Description = "sugar" };
-                sugar.AssignQuantity(3);
-
-                Item flour = new Item() { Description = "flour" };
-                flour.AssignQuantity(1);
+                
+                Item sugar = new Item() { Description = ITEM1_DESCRIPTION };
+                sugar.AssignQuantity(ITEM1_QUANTITY);
+                
+                Item flour = new Item() { Description = ITEM2_DESCRIPTION };
+                flour.AssignQuantity(ITEM2_QUANTITY);
 
                 pantry.AddItem(sugar);
                 pantry.AddItem(flour);
 
                 string itemsReport = pantry.ReportOnItems();
 
-                Assert.AreEqual("sugar: 3\r\nflour: 1\r\n", itemsReport);
+                Assert.AreEqual(string.Format("{0}: {1}\r\n{2}: {3}\r\n", ITEM1_DESCRIPTION, ITEM1_QUANTITY, ITEM2_DESCRIPTION, ITEM2_QUANTITY), itemsReport);
 
             }
         }
@@ -101,10 +117,13 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Item_Is_Removed_from_the_Pantry()
             {
-                Pantry pantry = new Pantry();
+                const string DESCRIPTION_TO_REMOVE = "sugar";
+                const string DESCRIPTION_NOT_TO_REMOVE = "flour";
 
-                Item sugar = new Item() { Description = "sugar" };
-                Item flour = new Item() { Description = "flour" };
+                Pantry pantry = new Pantry();
+                
+                Item sugar = new Item() { Description = DESCRIPTION_TO_REMOVE };
+                Item flour = new Item() { Description = DESCRIPTION_NOT_TO_REMOVE };
 
                 pantry.AddItem(sugar);
                 pantry.AddItem(flour);
@@ -112,7 +131,7 @@ namespace Grandma.Domain.Tests
                 CollectionAssert.Contains(pantry.Items, sugar, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
                 CollectionAssert.Contains(pantry.Items, flour, "PRECONDITION ASSERT FAILURE: pantry.Items doesn't contain expected item!");
 
-                pantry.RemoveItem("sugar");
+                pantry.RemoveItem(DESCRIPTION_TO_REMOVE);
 
                 CollectionAssert.DoesNotContain(pantry.Items, sugar);
             }
@@ -125,11 +144,13 @@ namespace Grandma.Domain.Tests
             [Test]
             public void Can_Report_Pantry_Is_Empty()
             {
+                const string EMPTY_PANTRY_MESSAGE = "The Pantry is bare!";
+
                 Pantry pantry = new Pantry();
 
                 CollectionAssert.IsEmpty(pantry.Items, "PRECONDITION ASSERT FAILURE: pantry.Items is NOT empty as expected!");
-
-                Assert.AreEqual("The Pantry is bare!".ToUpper(), pantry.ReportOnItems().ToUpper());
+                
+                Assert.AreEqual(EMPTY_PANTRY_MESSAGE.ToUpper(), pantry.ReportOnItems().ToUpper());
             }
         }
 
@@ -142,21 +163,22 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                Item sugar = new Item() { Description = "sugar" };
+                const string DESCRIPTION = "sugar";
+
+                Item sugar = new Item() { Description = DESCRIPTION };
                 sugar.AssignQuantity(3);
 
                 //ensure there aren't already any 'sugar' items in the pantry
-                Assert.Throws<InvalidOperationException>(() => pantry.Items.Where(i => i.Description == "sugar").Single());
-                
+                Assert.Throws<InvalidOperationException>(() => pantry.Items.Where(i => i.Description == DESCRIPTION).Single());
 
                 pantry.AddItem(sugar);
 
-                Item moreSugar = new Item() { Description = "sugar" };
+                Item moreSugar = new Item() { Description = DESCRIPTION };
                 moreSugar.AssignQuantity(4);
 
                 pantry.AddItem(moreSugar);
 
-                var pantrySugar = pantry.Items.Where(i => i.Description == "sugar").Single();
+                var pantrySugar = pantry.Items.Where(i => i.Description == DESCRIPTION).Single();
 
                 Assert.AreEqual(7, pantrySugar.Quantity);
 
@@ -172,9 +194,11 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                CollectionAssert.IsEmpty(pantry.Items);
+                const string DESCRIPTION = "description";
+                
+                Item item = new Item() { Description = DESCRIPTION };
 
-                Item item = new Item() { Description = "something" };
+                CollectionAssert.DoesNotContain(pantry.Items, item, "PRECONDITION FAILURE: item is already in the collection!");
 
                 pantry.AddItem(item);
 
@@ -187,9 +211,9 @@ namespace Grandma.Domain.Tests
             {
                 Pantry pantry = new Pantry();
 
-                CollectionAssert.IsEmpty(pantry.Items);
-
                 Item item = new Item();
+
+                CollectionAssert.DoesNotContain(pantry.Items, item, "PRECONDITION FAILURE: item is already in the collection!");
 
                 pantry.AddItem(item);
 
